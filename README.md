@@ -1,66 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚚 API de Repartos - Challenge Quadminds
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API REST para gestión de repartos, clientes y órdenes desarrollada en Laravel para el challenge técnico de Quadminds.
 
-## About Laravel
+## 🚀 Instalación y Configuración
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/gonzalolsk/qm-repartos.git
+cd qm-repartos
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. Instalar dependencias
+```bash
+composer install
+npm install
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 3. Configurar variables de entorno
+```bash
+cp .env.example .env
+```
 
-## Learning Laravel
+Editar `.env` con tu configuración:
+```env
+APP_NAME="API Repartos"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=qm_repartos
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 4. Generar clave de aplicación
+```bash
+php artisan key:generate
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 5. Ejecutar migraciones
+```bash
+php artisan migrate
+```
 
-## Laravel Sponsors
+### 6. Ejecutar seeders para vehicles y clients
+```bash
+php artisan db:seed
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 7. Iniciar servidor
+```bash
+php artisan serve
+```
 
-### Premium Partners
+## Documentación de la API
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Swagger
 
-## Contributing
+La API incluye documentación completa generada con Swagger. Para acceder a ella:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. **Generar documentación**: `php artisan l5-swagger:generate`
+2. **URL de documentación**: `http://localhost:8000/api/documentation`
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Endpoints Principales y Ejemplos de uso
 
-## Security Vulnerabilities
+#### Clientes
+- `POST /api/clientes` - Alta de cliente
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Content-Type: application/json
 
-## License
+{
+    "codigo": "CLI0031",
+    "razon_social": "Nueva Empresa S.R.L.",
+    "email": "contacto@nueva.com",
+    "direccion": "Av. Belgrano 999, CABA",
+    "latitud": -34.6118,
+    "longitud": -58.3960
+}
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Órdenes
+- `POST /api/ordenes` - Alta de orden asociada a un cliente
+
+Content-Type: application/json
+
+{
+    "client_id": 1,
+    "codigo_de_orden": "ORD0031",
+    "fecha_creacion": "2025-08-20 10:00:00"
+}
+
+- `PATCH /api/ordenes/{id}/asignar-reparto` - Asignar una orden a un reparto
+
+Content-Type: application/json
+
+{
+    "reparto_id": 1
+}
+
+#### Repartos
+- `POST /api/repartos` - Alta de un reparto con vehículo asignado
+
+Content-Type: application/json
+
+{
+    "codigo_de_reparto": "REP002",
+    "fecha_entrega": "2025-08-22",
+    "estado": "pendiente",
+    "vehicle_id": 1
+}
+
+- `GET /api/repartos/por-fecha?fecha=2025-08-22` - Listar los repartos de un día, mostrando las órdenes y los clientes asociados.

@@ -1,0 +1,380 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Repartos",
+        "description": "Documentación de la API de repartos con Swagger",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Servidor de la API"
+        }
+    ],
+    "paths": {
+        "/clientes": {
+            "post": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Alta de cliente",
+                "operationId": "528dfeacdeb724f2c8e1065938cdcff6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "codigo",
+                                    "razon_social",
+                                    "email",
+                                    "direccion",
+                                    "latitud",
+                                    "longitud"
+                                ],
+                                "properties": {
+                                    "codigo": {
+                                        "type": "string",
+                                        "example": "CLI001"
+                                    },
+                                    "razon_social": {
+                                        "type": "string",
+                                        "example": "Empresa ABC"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "cliente@empresa.com"
+                                    },
+                                    "direccion": {
+                                        "type": "string",
+                                        "example": "Av. Principal 123"
+                                    },
+                                    "latitud": {
+                                        "type": "number",
+                                        "example": -34.6037
+                                    },
+                                    "longitud": {
+                                        "type": "number",
+                                        "example": -58.3816
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cliente creado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente creado exitosamente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    }
+                }
+            }
+        },
+        "/repartos": {
+            "post": {
+                "tags": [
+                    "Repartos"
+                ],
+                "summary": "Alta de un reparto con vehículo asignado",
+                "operationId": "dcd2a7a6c70f0588321168849f3c6db1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "codigo_de_reparto",
+                                    "fecha_entrega",
+                                    "vehicle_id"
+                                ],
+                                "properties": {
+                                    "codigo_de_reparto": {
+                                        "type": "string",
+                                        "example": "REP001"
+                                    },
+                                    "fecha_entrega": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-01-15"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "enum": [
+                                            "pendiente",
+                                            "en_progreso",
+                                            "completado",
+                                            "cancelado"
+                                        ],
+                                        "example": "pendiente"
+                                    },
+                                    "vehicle_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Reparto creado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reparto creado exitosamente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    }
+                }
+            }
+        },
+        "/repartos/por-fecha": {
+            "get": {
+                "tags": [
+                    "Repartos"
+                ],
+                "summary": "Listar los repartos de un día, mostrando las órdenes y los clientes asociados.",
+                "operationId": "d66404a9955a10d8863c6037ba862bcd",
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "query",
+                        "description": "Fecha de entrega (YYYY-MM-DD)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2025-01-15"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Repartos encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "fecha_consulta": {
+                                            "type": "string",
+                                            "example": "2025-01-15"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    }
+                }
+            }
+        },
+        "/ordenes": {
+            "post": {
+                "tags": [
+                    "Órdenes"
+                ],
+                "summary": "Alta de orden asociada a un cliente",
+                "operationId": "2e89bbe2b1b549c1369380fecebef140",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "cliente_id",
+                                    "codigo_de_orden",
+                                    "fecha_creacion"
+                                ],
+                                "properties": {
+                                    "cliente_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "codigo_de_orden": {
+                                        "type": "string",
+                                        "example": "ORD001"
+                                    },
+                                    "fecha_creacion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-01-15"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Orden creada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Orden creada exitosamente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    }
+                }
+            }
+        },
+        "/ordenes/{orderId}/asignar-reparto": {
+            "patch": {
+                "tags": [
+                    "Órdenes"
+                ],
+                "summary": "Asignar una orden a un reparto",
+                "operationId": "ca6d7ee05ca1be5f2393dbebeef4af12",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "ID de la orden",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "distribution_id"
+                                ],
+                                "properties": {
+                                    "distribution_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Orden asignada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Orden asignada al reparto exitosamente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Orden no encontrada"
+                    },
+                    "422": {
+                        "description": "Error de validación o orden ya asignada"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Clientes",
+            "description": "Gestión de clientes"
+        },
+        {
+            "name": "Repartos",
+            "description": "Gestión de repartos"
+        },
+        {
+            "name": "Órdenes",
+            "description": "Órdenes"
+        }
+    ]
+}

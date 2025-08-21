@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DistributionController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::prefix('clientes')->group(function () {
+    Route::post('/', [ClientController::class, 'store']); // Alta de cliente
+});
+
+
+Route::prefix('ordenes')->group(function () {
+    Route::post('/', [OrderController::class, 'store']); // Alta de orden
+    Route::patch('/{orderId}/asignar-reparto', [OrderController::class, 'assignToDistribution']); // Asignar una orden a un reparto
+});
+
+
+Route::prefix('repartos')->group(function () {
+    Route::post('/', [DistributionController::class, 'store']); // Alta de reparto con vehiculo asignado
+    Route::get('/por-fecha', [DistributionController::class, 'getRepartosByDate']); // Listar los repartos de un día
 });
