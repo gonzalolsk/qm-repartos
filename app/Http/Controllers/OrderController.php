@@ -76,7 +76,7 @@ class OrderController extends Controller
     /**
      * @OA\Patch(
      *     path="/ordenes/{orderId}/asignar-reparto",
-     *     tags={"Órdenes"},
+     *     tags={"Ordenes"},
      *     summary="Asignar una orden a un reparto",
      *     security={{"ApiKeyAuth":{}}},
      *     @OA\Parameter(

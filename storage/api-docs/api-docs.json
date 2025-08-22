@@ -242,7 +242,7 @@
         "/ordenes": {
             "post": {
                 "tags": [
-                    "Órdenes"
+                    "Ordenes"
                 ],
                 "summary": "Alta de orden asociada a un cliente",
                 "operationId": "2e89bbe2b1b549c1369380fecebef140",
@@ -314,7 +314,7 @@
         "/ordenes/{orderId}/asignar-reparto": {
             "patch": {
                 "tags": [
-                    "Órdenes"
+                    "Ordenes"
                 ],
                 "summary": "Asignar una orden a un reparto",
                 "operationId": "ca6d7ee05ca1be5f2393dbebeef4af12",
@@ -408,8 +408,8 @@
             "description": "Gestión de repartos"
         },
         {
-            "name": "Órdenes",
-            "description": "Órdenes"
+            "name": "Ordenes",
+            "description": "Ordenes"
         }
     ]
 }
