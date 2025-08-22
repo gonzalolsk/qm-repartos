@@ -91,7 +91,12 @@
                     "422": {
                         "description": "Error de validación"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
             }
         },
         "/repartos": {
@@ -168,7 +173,12 @@
                     "422": {
                         "description": "Error de validación"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
             }
         },
         "/repartos/por-fecha": {
@@ -221,7 +231,12 @@
                     "422": {
                         "description": "Error de validación"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
             }
         },
         "/ordenes": {
@@ -237,7 +252,7 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "cliente_id",
+                                    "client_id",
                                     "codigo_de_orden",
                                     "fecha_creacion"
                                 ],
@@ -288,7 +303,12 @@
                     "422": {
                         "description": "Error de validación"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
             }
         },
         "/ordenes/{orderId}/asignar-reparto": {
@@ -359,7 +379,22 @@
                     "422": {
                         "description": "Error de validación o orden ya asignada"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "description": "API Key para autenticación",
+                "name": "X-API-Key",
+                "in": "header"
             }
         }
     },

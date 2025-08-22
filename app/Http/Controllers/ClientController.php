@@ -20,6 +20,7 @@ class ClientController extends Controller
      *     path="/clientes",
      *     tags={"Clientes"},
      *     summary="Alta de cliente",
+     *     security={{"ApiKeyAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(

@@ -21,6 +21,7 @@ class OrderController extends Controller
      *     path="/ordenes",
      *     tags={"Órdenes"},
      *     summary="Alta de orden asociada a un cliente",
+     *     security={{"ApiKeyAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -77,6 +78,7 @@ class OrderController extends Controller
      *     path="/ordenes/{orderId}/asignar-reparto",
      *     tags={"Órdenes"},
      *     summary="Asignar una orden a un reparto",
+     *     security={{"ApiKeyAuth":{}}},
      *     @OA\Parameter(
      *         name="orderId",
      *         in="path",

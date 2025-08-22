@@ -34,6 +34,8 @@ DB_PORT=3306
 DB_DATABASE=qm_repartos
 DB_USERNAME=root
 DB_PASSWORD=
+
+API_KEY=qm_repartos_2025_secure_key_12345
 ```
 
 ### 4. Generar clave de aplicación
@@ -65,8 +67,12 @@ La API incluye documentación completa generada con Swagger. Para acceder a ella
 1. **Generar documentación**: `php artisan l5-swagger:generate`
 2. **URL de documentación**: `http://localhost:8000/api/documentation`
 
+### 🔑 Autenticación
 
-### Endpoints Principales y Ejemplos de uso
+La API utiliza **API Key** para autenticación. Debes incluir el header `X-API-Key` en todas las peticiones.
+
+
+### Endpoints Principales
 
 #### Clientes
 - `POST /api/clientes` - Alta de cliente

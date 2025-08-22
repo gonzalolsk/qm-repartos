@@ -22,6 +22,7 @@ class DistributionController extends Controller
      *     path="/repartos",
      *     tags={"Repartos"},
      *     summary="Alta de un reparto con vehículo asignado",
+     *     security={{"ApiKeyAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -80,6 +81,7 @@ class DistributionController extends Controller
      *     path="/repartos/por-fecha",
      *     tags={"Repartos"},
      *     summary="Listar los repartos de un día, mostrando las órdenes y los clientes asociados.",
+     *     security={{"ApiKeyAuth":{}}},
      *     @OA\Parameter(
      *         name="fecha",
      *         in="query",

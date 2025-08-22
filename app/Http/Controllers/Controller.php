@@ -17,6 +17,14 @@ use Illuminate\Routing\Controller as BaseController;
  *     url=L5_SWAGGER_CONST_HOST,
  *     description="Servidor de la API"
  * )
+ *
+ * @OA\SecurityScheme(
+ *     securityScheme="ApiKeyAuth",
+ *     type="apiKey",
+ *     in="header",
+ *     name="X-API-Key",
+ *     description="API Key para autenticación"
+ * )
  */
 class Controller extends BaseController
 {
