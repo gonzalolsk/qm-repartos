@@ -35,7 +35,7 @@ DB_DATABASE=qm_repartos
 DB_USERNAME=root
 DB_PASSWORD=
 
-API_KEY=qm_repartos_2025_secure_key_12345
+API_KEY=tu_api_key_aqui
 ```
 
 ### 4. Generar clave de aplicación
