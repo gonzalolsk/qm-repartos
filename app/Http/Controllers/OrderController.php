@@ -19,14 +19,14 @@ class OrderController extends Controller
     /**
      * @OA\Post(
      *     path="/ordenes",
-     *     tags={"Órdenes"},
+     *     tags={"Ordenes"},
      *     summary="Alta de orden asociada a un cliente",
      *     security={{"ApiKeyAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
      *             required={"client_id","codigo_de_orden","fecha_creacion"},
-     *             @OA\Property(property="cliente_id", type="integer", example=1),
+     *             @OA\Property(property="client_id", type="integer", example=1),
      *             @OA\Property(property="codigo_de_orden", type="string", example="ORD001"),
      *             @OA\Property(property="fecha_creacion", type="string", format="date", example="2025-01-15")
      *         )
